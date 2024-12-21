@@ -91,7 +91,7 @@ The **Symbol Table** manages variables and functions within the shell.
 ---
 
 ## Demo 
-
+Screenshots of the shell (compiled on void linux).
 ![shell_demo2](https://github.com/user-attachments/assets/adb675f7-dac8-4100-aea7-e7771b901976)
 
 ![shell_demo3](https://github.com/user-attachments/assets/a80c890d-9028-4519-8d91-357b60d40fd6)
