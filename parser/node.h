@@ -1,50 +1,36 @@
-
 #ifndef NODE_H
 #define NODE_H
 
-enum node_type_e {
-  NODE_COMMAND,
-  NODE_VAR,
-};
-typedef enum node_type_e node_type_e;
+#include <stdlib.h>
+#include <string.h>
 
-enum val_type_e {
-  VAL_SINT = 1,
-  VAL_UINT,
-  VAL_SLLONG,
-  VAL_ULLONG,
-  VAL_FLOAT,
-  VAL_LDOUBLE,
-  VAL_CHR,
-  VAL_STR,
-};
-typedef enum val_type_e val_type_e;
+typedef enum {
+    NODE_COMMAND,
+    NODE_VAR,
+    NODE_REDIRECT
+} node_type_e;
 
-union symval_u {
-  long sint;
-  unsigned long uint;
-  long long sllong;
-  unsigned long long ullong;
-  double sfloat;
-  long double ldouble;
-  char chr;
-  char *str;
-};
-typedef union symval_u symval_u;
+typedef enum {
+    VAL_STR
+} val_type_e;
 
-struct node_s {
-  enum node_type_e type;
-  enum val_type_e val_type;
-  union symval_u val;
-  int children;
-  struct node_s *first_child;
-  struct node_s *next_sibling, *prev_sibling;
-};
-typedef struct node_s node_s;
+typedef struct node_s {
+    node_type_e type;
+    char *redirect_type; // for redirection nodes
+    char *filename;      
+    val_type_e val_type; 
+    union {
+        char *str;
+    } val;
+    struct node_s *first_child;
+    struct node_s *next_sibling;
+    struct node_s *prev_sibling;
+    int children; 
+} node_s;
 
 node_s *create_node(node_type_e type);
-void add_child (node_s *parent, node_s *child);
-void free_node_tree(node_s *root); 
+void add_child(node_s *parent, node_s *child);
+void free_node_tree(node_s *node);
 void set_node_val_str(node_s *node, char *str);
 
-#endif
+#endif 
